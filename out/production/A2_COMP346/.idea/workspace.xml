@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e051ef6f-8d76-454d-bd33-387c37a437a9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/Network.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/A2_COMP346.iml" beforeDir="false" afterPath="$PROJECT_DIR$/A2_COMP346.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Accounts-v2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client-v2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Network-v2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OSpa2driver-v2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server-v2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Transactions-v2.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,39 +57,6 @@
       <option name="presentableId" value="Default" />
       <updated>1645457499849</updated>
     </task>
-    <task id="LOCAL-00001" summary="changed files">
-      <created>1645457884731</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1645457884731</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="changed files" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed files" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

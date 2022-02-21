@@ -272,10 +272,10 @@ public class Server extends Thread {
          /* Process the accounts until the client disconnects */
          while ((!Network.getClientConnectionStatus().equals("disconnected")))
          {
-        	// while ( (Network.getInBufferStatus().equals("empty") && !Network.getClientConnectionStatus().equals("disconnected")) ) 
-        	// { 
-        	//	 Thread.yield(); 	/* Yield the cpu if the network input buffer is empty */
-        	// }
+             // YIELD : Object yields when in buffer is empty.
+             while (Network.getInBufferStatus().equals("empty") && !Network.getClientConnectionStatus().equals("disconnected")) {
+                 this.yield();
+             }
         	 
         	 if (!Network.getInBufferStatus().equals("empty"))
         	 { 
@@ -312,13 +312,13 @@ public class Server extends Thread {
                             trans.setTransactionStatus("done");
                             
                             /* System.out.println("\n DEBUG : Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber()); */
-					} 
+					}
 
-            	
-        	//	 while (Network.getOutBufferStatus().equals("full")) 
-        	//	 { 
-        	//		 Thread.yield();		/* Yield the cpu if the network output buffer is full */
-        	//	 }
+
+                 // YIELD: Object yields when out buffer is full.
+                 while (Network.getOutBufferStatus().equals("full") && !Network.getClientConnectionStatus().equals("disconnected")) {
+                     this.yield();
+                 }
         		
         		 /* System.out.println("\n DEBUG : Server.processTransactions() - transferring out account " + trans.getAccountNumber()); */
         		 
@@ -417,15 +417,27 @@ public class Server extends Thread {
     public void run()
     {
         Transactions trans = new Transactions();
-    	 long serverStartTime=0, serverEndTime=0;
-    
-	/* System.out.println("\n DEBUG : Server.run() - starting server thread " + getServerThreadId() + " " + Network.getServerConnectionStatus()); */
+        long serverStartTime, serverEndTime;
 
-    
-	/* System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus()); */
-    	
-    	/* .....................................................................................................................................................................................................*/
-        
+//        System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
+
+        /* Implement the code for the run method */
+        serverStartTime = System.currentTimeMillis();
+
+        // Server class reads all acounts from file and saves them in an array
+        // this.initializeAccounts(); // In constructor
+
+        // Using the Network.transferIn(), the server retrieves the trasanctions
+        // from the network input buffer and performs the operations
+        // WITHDRAW, DEPOSIT, QUERY. It yields the cpu in case the buffer is empty
+
+        this.processTransactions(trans);
+
+        serverEndTime = System.currentTimeMillis();
+
+        Network.disconnect(Network.getServerIP());
+
+        /* End of new code */
         System.out.println("\n Terminating server thread - " + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
 	
     }

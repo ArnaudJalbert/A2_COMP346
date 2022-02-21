@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
+import java.util.concurrent.Semaphore;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,17 +22,19 @@ public class Client extends Thread {
     private static int maxNbTransactions;      		/* Maximum number of transactions */
     private static Transactions [] transaction; 	        /* Transactions to be processed */
     private String clientOperation;    			/* sending or receiving */
+    public Semaphore lock;
        
 	/** Constructor method of Client class
  	 * 
      * @return 
      * @param
      */
-     Client(String operation)
+     Client(String operation, Semaphore lock)
      { 
        if (operation.equals("sending"))
        { 
            System.out.println("\n Initializing client sending application ...");
+           this.lock = lock;
            numberOfTransactions = 0;
            maxNbTransactions = 100;
            transaction = new Transactions[maxNbTransactions];  
@@ -49,6 +52,7 @@ public class Client extends Thread {
     	   if (operation.equals("receiving"))
            { 
     		   System.out.println("\n Initializing client receiving application ...");
+               this.lock = lock;
     		   clientOperation = operation; 
            }
      }
@@ -137,7 +141,7 @@ public class Client extends Thread {
         }
         setNumberOfTransactions(i);		/* Record the number of transactions processed */
         
-        /* System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed"); */
+        System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
         
         inputStream.close( );
 
@@ -154,16 +158,17 @@ public class Client extends Thread {
          int i = 0;     /* index of transaction array */
          
          while (i < getNumberOfTransactions())
-         {  
-	
-        //	 while (Network.getInBufferStatus().equals("full"))
-        //	{ 
-        // 	  Thread.yield(); 	/* Yield the cpu if the network input buffer is full */
-        //  }
+         {
+
+
+             // YIELD: Object yields when in buffer is full.
+             while(Network.getInBufferStatus().equals("full")) {
+                 this.yield();
+             }
                                               	
             transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
            
-            /* System.out.println("\n DEBUG : Client.sendTransactions() - sending transaction on account " + transaction[i].getAccountNumber()); */ 
+             System.out.println("\n DEBUG : Client.sendTransactions() - sending transaction on account " + transaction[i].getAccountNumber());
             
             Network.send(transaction[i]);                            /* Transmit current transaction */
             i++;          
@@ -182,16 +187,13 @@ public class Client extends Thread {
          int i = 0;     /* Index of transaction array */
          
          while (i < getNumberOfTransactions())
-         {   
-        	// while (Network.getOutBufferStatus().equals("empty")) 
-        	// { 
-        	//	 Thread.yield(); 	/* Yield the cpu if the network output buffer is full */
-        		 
-        	// }
+         {
+             while (Network.getOutBufferStatus().equals("empty") && !Network.getServerConnectionStatus().equals("disconnected"))
+                 this.yield();
                                                                             	
             Network.receive(transact);                               	/* Receive updated transaction from the network buffer */
             
-            /* System.out.println("\n DEBUG : Client.receiveTransactions() - receiving updated transaction on account " + transact.getAccountNumber()); */
+            System.out.println("\n DEBUG : Client.receiveTransactions() - receiving updated transaction on account " + transact.getAccountNumber());
             
             System.out.println(transact);                               /* Display updated transaction */    
             i++;
@@ -216,16 +218,44 @@ public class Client extends Thread {
      * @param
      */
     public void run()
-    {   
-    	Transactions transact = new Transactions();
-    	long sendClientStartTime=0, sendClientEndTime=0, receiveClientStartTime=0, receiveClientEndTime=0;
+    {
+        Transactions transact = new Transactions();
+        long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
 
+        /* Implement here the code for the run method ... */
 
-     
-         /*................................................................................................................................................................................................................*/
-              
-                System.out.println("\n Terminating client receiving thread - " + " Running time " +  (receiveClientEndTime - receiveClientStartTime));
+        // "The client class reads all transactions and save them in an array"
 
-                
+        if (clientOperation.equals("sending")) {
+
+            this.readTransactions(); // check method definition to see if it fits with the comment above
+
+            // "using Network.send, transfers the transactions to the network input buffer
+            // and it yields the cpu in case the network input buffer is full"
+
+            sendClientStartTime = System.currentTimeMillis();
+
+            this.sendTransactions();
+
+            sendClientEndTime = System.currentTimeMillis();
+
+            System.out.println("\n Terminating client sending thread - Running time " + (sendClientEndTime - sendClientStartTime) + " milliseconds");
+
+        } else {
+
+            // "using Netwok.receive() method, client class retrieves the updated trasactions
+            // from the netweork output buffer and it yields the cpu in case the buffer is empty.
+            // Each updateed trasaction received is displayed immediately on the screen."
+
+            receiveClientStartTime = System.currentTimeMillis();
+
+            this.receiveTransactions(transact); // check method definition to see if it fits with the comment above
+
+            receiveClientEndTime = System.currentTimeMillis();
+
+            Network.disconnect(Network.getClientIP());
+
+            System.out.println("\n Terminating client receiving thread - Running time " + (receiveClientEndTime - receiveClientStartTime) + " milliseconds");
+        }
     }
 }
