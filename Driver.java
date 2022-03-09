@@ -21,19 +21,20 @@ public class Driver {
     public static void main(String[] args) {
 
         Semaphore lock = new Semaphore(1);
+        Semaphore networkLock = new Semaphore(1);
 
-    	Network objNetwork = new Network( );            /* Activate the network */
+    	Network objNetwork = new Network(networkLock);            /* Activate the network */
         objNetwork.start();
 
-        Client objClient1 = new Client("sending", lock);          /* Start the sending client thread */
+        Client objClient1 = new Client("sending");          /* Start the sending client thread */
         objClient1.start();
-        Client objClient2 = new Client("receiving", lock);        /* Start the receiving client thread */
+        Client objClient2 = new Client("receiving");        /* Start the receiving client thread */
         objClient2.start();
         
       /*..............................................................................................................................................................*/
 
-        Server server1 = new Server("Thread1");
-        Server server2 = new Server("Thread2");
+        Server server1 = new Server("Thread1", lock);
+        Server server2 = new Server("Thread2", lock);
 
         server1.start();
         server2.start();
