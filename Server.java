@@ -461,28 +461,31 @@ public class Server extends Thread {
       
     public void run()
     {
-        Transactions trans = new Transactions();
+        // Set corresponding status to running
+        if (serverThreadId.equals("Thread1")) serverThreadRunningStatus1 = "running";
+        else serverThreadRunningStatus2 = "running";
+
+        // Start server timer
         long serverStartTime, serverEndTime;
-
-//        System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
-
-        /* Implement the code for the run method */
         serverStartTime = System.currentTimeMillis();
 
-        // Server class reads all acounts from file and saves them in an array
-        // this.initializeAccounts(); // In constructor
-
-        // Using the Network.transferIn(), the server retrieves the trasanctions
-        // from the network input buffer and performs the operations
-        // WITHDRAW, DEPOSIT, QUERY. It yields the cpu in case the buffer is empty
-
+        // Process transaction
+        Transactions trans = new Transactions();
         this.processTransactions(trans);
 
+        // Stop server timer
         serverEndTime = System.currentTimeMillis();
 
-        Network.disconnect(Network.getServerIP());
+        // Set corresponding status to "terminated"
+        if (serverThreadId.equals("Thread1")) serverThreadRunningStatus1 = "terminated";
+        else serverThreadRunningStatus2 = "terminated";
+
+        // "When both threads are terminated, the server disconnects
+        if (serverThreadRunningStatus1.equals("terminated") && serverThreadRunningStatus2.equals("terminated"))
+            Network.disconnect(Network.getServerIP());
 
         /* End of new code */
+
         System.out.println("\n Terminating server "+ serverThreadId + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
 	
     }
