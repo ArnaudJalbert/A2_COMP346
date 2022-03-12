@@ -21,9 +21,13 @@ public class Driver {
     public static void main(String[] args) {
 
         Semaphore lock = new Semaphore(1);
-        Semaphore networkLock = new Semaphore(1);
 
-    	Network objNetwork = new Network(networkLock);            /* Activate the network */
+        Semaphore InBufferEmpty = new Semaphore(10);
+        Semaphore InBufferFull = new Semaphore(0);
+        Semaphore OutBufferEmpty = new Semaphore(10);
+        Semaphore OutBufferFull = new Semaphore(0);
+
+    	Network objNetwork = new Network(InBufferEmpty, InBufferFull, OutBufferEmpty, OutBufferFull);            /* Activate the network */
         objNetwork.start();
 
         Client objClient1 = new Client("sending");          /* Start the sending client thread */

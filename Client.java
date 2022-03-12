@@ -159,12 +159,6 @@ public class Client extends Thread {
          
          while (i < getNumberOfTransactions())
          {
-
-
-             // YIELD: Object yields when in buffer is full.
-             while(Network.getInBufferStatus().equals("full")) {
-                 this.yield();
-             }
                                               	
             transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
            
@@ -188,8 +182,6 @@ public class Client extends Thread {
          
          while (i < getNumberOfTransactions())
          {
-             while (Network.getOutBufferStatus().equals("empty") && !Network.getServerConnectionStatus().equals("disconnected"))
-                 this.yield();
                                                                             	
             Network.receive(transact);                               	/* Receive updated transaction from the network buffer */
             
@@ -230,9 +222,6 @@ public class Client extends Thread {
 
             this.readTransactions(); // check method definition to see if it fits with the comment above
 
-            // "using Network.send, transfers the transactions to the network input buffer
-            // and it yields the cpu in case the network input buffer is full"
-
             sendClientStartTime = System.currentTimeMillis();
 
             this.sendTransactions();
@@ -242,10 +231,6 @@ public class Client extends Thread {
             System.out.println("\n Terminating client sending thread - Running time " + (sendClientEndTime - sendClientStartTime) + " milliseconds");
 
         } else {
-
-            // "using Netwok.receive() method, client class retrieves the updated trasactions
-            // from the netweork output buffer and it yields the cpu in case the buffer is empty.
-            // Each updateed trasaction received is displayed immediately on the screen."
 
             receiveClientStartTime = System.currentTimeMillis();
 

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e051ef6f-8d76-454d-bd33-387c37a437a9" name="Changes" comment="COMMENTED OUT THE SYNCHRONIZATION IN NETWORK AND PHASE 1 IS WORKING, LOCK IN DEPOSIT, WITHDRAW AND QUERY">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/Network.java" afterDir="false" />
+    <list default="true" id="e051ef6f-8d76-454d-bd33-387c37a437a9" name="Changes" comment="removed shit">
+      <change beforePath="$PROJECT_DIR$/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,6 +10,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -65,7 +69,49 @@
       <option name="project" value="LOCAL" />
       <updated>1647104253322</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Removed bad shit">
+      <created>1647106068572</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1647106068572</updated>
+    </task>
+    <task id="LOCAL-00004" summary="WIP">
+      <created>1647117159333</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1647117159333</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fix with two random sysout statement">
+      <created>1647124492969</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1647124492969</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Changed the sysout for a yield and everything is working fine">
+      <created>1647125868073</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1647125868073</updated>
+    </task>
+    <task id="LOCAL-00007" summary="removed shit">
+      <created>1647126296658</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1647126296658</updated>
+    </task>
+    <task id="LOCAL-00008" summary="removed shit">
+      <created>1647126526231</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1647126526231</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -73,7 +119,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="arno_semaphore_p2" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -83,7 +141,12 @@
     <MESSAGE value="changed files" />
     <MESSAGE value="saving shit" />
     <MESSAGE value="COMMENTED OUT THE SYNCHRONIZATION IN NETWORK AND PHASE 1 IS WORKING, LOCK IN DEPOSIT, WITHDRAW AND QUERY" />
-    <option name="LAST_COMMIT_MESSAGE" value="COMMENTED OUT THE SYNCHRONIZATION IN NETWORK AND PHASE 1 IS WORKING, LOCK IN DEPOSIT, WITHDRAW AND QUERY" />
+    <MESSAGE value="Removed bad shit" />
+    <MESSAGE value="WIP" />
+    <MESSAGE value="Fix with two random sysout statement" />
+    <MESSAGE value="Changed the sysout for a yield and everything is working fine" />
+    <MESSAGE value="removed shit" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed shit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -92,6 +155,11 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Network.java</url>
+          <line>521</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

@@ -28,7 +28,8 @@ public class Server extends Thread {
 	private String serverThreadId;				 /* Identification of the two server threads - Thread1, Thread2 */
 	private static String serverThreadRunningStatus1;	 /* Running status of thread 1 - idle, running, terminated */
 	private static String serverThreadRunningStatus2;	 /* Running status of thread 2 - idle, running, terminated */
-    private Semaphore lock;
+    private static Semaphore lock = new Semaphore(1);
+
     /**
      * Constructor method of Client class
      * 
@@ -54,7 +55,7 @@ public class Server extends Thread {
     			System.out.println("\n Terminating server application, network unavailable");
     			System.exit(0);
     		}
-            this.lock = lock;
+
     	}
     	else
     	{
@@ -266,7 +267,9 @@ public class Server extends Thread {
      * @param trans
      */
      public boolean processTransactions(Transactions trans)
-     {   int accIndex;             	/* Index position of account to update */
+     {
+         System.out.print("");
+         int accIndex;             	/* Index position of account to update */
          double newBalance; 		/* Updated account balance */
          
          /* System.out.println("\n DEBUG : Server.processTransactions() " + getServerThreadId() ); */
@@ -274,11 +277,7 @@ public class Server extends Thread {
          /* Process the accounts until the client disconnects */
          while ((!Network.getClientConnectionStatus().equals("disconnected")))
          {
-//             // YIELD : Object yields when in buffer is empty.
-//             while (Network.getInBufferStatus().equals("empty") && !Network.getClientConnectionStatus().equals("disconnected")) {
-//                 this.yield();
-//             }
-        	 
+             this.yield();
         	 if (!Network.getInBufferStatus().equals("empty"))
         	 { 
         		 /* System.out.println("\n DEBUG : Server.processTransactions() - transferring in account " + trans.getAccountNumber()); */
@@ -315,13 +314,6 @@ public class Server extends Thread {
                             
                             /* System.out.println("\n DEBUG : Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber()); */
 					}
-
-
-                 //YIELD: Object yields when out buffer is full.
-                 while (Network.getOutBufferStatus().equals("full") && !Network.getClientConnectionStatus().equals("disconnected")) {
-                     this.yield();
-                 }
-
         		 /* System.out.println("\n DEBUG : Server.processTransactions() - transferring out account " + trans.getAccountNumber()); */
         		 
         		 Network.transferOut(trans);                            		/* Transfer a completed transaction from the server to the network output buffer */
@@ -330,7 +322,6 @@ public class Server extends Thread {
          }
          
          /* System.out.println("\n DEBUG : Server.processTransactions() - " + getNumberOfTransactions() + " accounts updated"); */
-              
          return true;
      }
          
@@ -345,8 +336,6 @@ public class Server extends Thread {
      {
          try {
              lock.acquire();
-//             System.out.println();
-//             System.out.println("--------Acquire in Deposit----------");
          }catch (Exception e){}
 
          double curBalance;      /* Current account balance */
@@ -371,8 +360,6 @@ public class Server extends Thread {
 
          try {
              lock.release();
-//             System.out.println();
-//             System.out.println("-------Release in Deposit--------");
          }catch (Exception e){}
 
      		return account[i].getBalance ();                /* Return updated account balance */
@@ -391,8 +378,6 @@ public class Server extends Thread {
      {
          try {
              lock.acquire();
-//             System.out.println();
-//             System.out.println("---------Acquire in Withdraw--------------");
          }catch (Exception e){}
          double curBalance;      /* Current account balance */
         
@@ -402,12 +387,9 @@ public class Server extends Thread {
         
         account[i].setBalance(curBalance - amount);     /* Withdraw amount in the account */
 
-//         try {
-//             lock.release();
-////             System.out.println();
-////             System.out.println("-----------Release in Withdraw---------");
-//         }catch (Exception e){}
-//
+         try {
+             lock.release();
+         }catch (Exception e){}
         return account[i].getBalance ();                /* Return updated account balance */
 
 
@@ -424,8 +406,6 @@ public class Server extends Thread {
      {
          try{
              lock.acquire();
-//             System.out.println();
-//             System.out.println("-----------Query Acquired-------------");
          }catch (Exception e){}
          double curBalance;      /* Current account balance */
         
@@ -435,8 +415,6 @@ public class Server extends Thread {
 
          try{
              lock.release();
-//             System.out.println();
-//             System.out.println("------Query Released---------");
          }catch (Exception e){}
 
         return curBalance;                              /* Return current account balance */
@@ -485,7 +463,6 @@ public class Server extends Thread {
             Network.disconnect(Network.getServerIP());
 
         /* End of new code */
-
         System.out.println("\n Terminating server "+ serverThreadId + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
 	
     }
