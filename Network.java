@@ -641,7 +641,7 @@ public class Network extends Thread {
             if(getServerConnectionStatus().equals("disconnected") && getClientConnectionStatus().equals("disconnected")) {
                 break;
             }
-            System.out.print("");
+            this.yield();
         }
 
         long stop = System.currentTimeMillis();

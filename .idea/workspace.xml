@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e051ef6f-8d76-454d-bd33-387c37a437a9" name="Changes" comment="WIP">
+    <list default="true" id="e051ef6f-8d76-454d-bd33-387c37a437a9" name="Changes" comment="Fix with two random sysout statement">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/Network.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A2_COMP346/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A2_COMP346/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A2_COMP346/account.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A2_COMP346/account.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A2_COMP346/transaction2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A2_COMP346/transaction2.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +86,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647117159333</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fix with two random sysout statement">
+      <created>1647124492969</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1647124492969</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -119,7 +125,8 @@
     <MESSAGE value="COMMENTED OUT THE SYNCHRONIZATION IN NETWORK AND PHASE 1 IS WORKING, LOCK IN DEPOSIT, WITHDRAW AND QUERY" />
     <MESSAGE value="Removed bad shit" />
     <MESSAGE value="WIP" />
-    <option name="LAST_COMMIT_MESSAGE" value="WIP" />
+    <MESSAGE value="Fix with two random sysout statement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix with two random sysout statement" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
