@@ -29,6 +29,7 @@ public class Server extends Thread {
 	private static String serverThreadRunningStatus1;	 /* Running status of thread 1 - idle, running, terminated */
 	private static String serverThreadRunningStatus2;	 /* Running status of thread 2 - idle, running, terminated */
     private static Semaphore lock = new Semaphore(1);
+
     /**
      * Constructor method of Client class
      * 
@@ -46,7 +47,6 @@ public class Server extends Thread {
     		serverThreadId = stid;							/* unshared variable so each thread has its own copy */
     		serverThreadRunningStatus1 = "idle";				
     		account = new Accounts[maxNbAccounts];
-            // lock = ParamLock;
     		System.out.println("\n Inializing the Accounts database ...");
     		initializeAccounts( );
     		System.out.println("\n Connecting server to network ...");
@@ -277,7 +277,7 @@ public class Server extends Thread {
          /* Process the accounts until the client disconnects */
          while ((!Network.getClientConnectionStatus().equals("disconnected")))
          {
-             System.out.print("");
+             this.yield();
         	 if (!Network.getInBufferStatus().equals("empty"))
         	 { 
         		 /* System.out.println("\n DEBUG : Server.processTransactions() - transferring in account " + trans.getAccountNumber()); */
@@ -459,10 +459,8 @@ public class Server extends Thread {
         else serverThreadRunningStatus2 = "terminated";
 
         // "When both threads are terminated, the server disconnects
-        if (serverThreadRunningStatus1.equals("terminated") && serverThreadRunningStatus2.equals("terminated")) {
+        if (serverThreadRunningStatus1.equals("terminated") && serverThreadRunningStatus2.equals("terminated"))
             Network.disconnect(Network.getServerIP());
-
-        }
 
 //        System.out.println(Network.getServerConnectionStatus());
 
