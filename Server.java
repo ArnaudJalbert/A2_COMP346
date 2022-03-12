@@ -267,7 +267,9 @@ public class Server extends Thread {
      * @param trans
      */
      public boolean processTransactions(Transactions trans)
-     {   int accIndex;             	/* Index position of account to update */
+     {
+         System.out.print("");
+         int accIndex;             	/* Index position of account to update */
          double newBalance; 		/* Updated account balance */
          
          /* System.out.println("\n DEBUG : Server.processTransactions() " + getServerThreadId() ); */
@@ -275,6 +277,7 @@ public class Server extends Thread {
          /* Process the accounts until the client disconnects */
          while ((!Network.getClientConnectionStatus().equals("disconnected")))
          {
+             System.out.print("");
         	 if (!Network.getInBufferStatus().equals("empty"))
         	 { 
         		 /* System.out.println("\n DEBUG : Server.processTransactions() - transferring in account " + trans.getAccountNumber()); */
@@ -319,7 +322,6 @@ public class Server extends Thread {
          }
          
          /* System.out.println("\n DEBUG : Server.processTransactions() - " + getNumberOfTransactions() + " accounts updated"); */
-         System.out.println("disconected");
          return true;
      }
          
@@ -462,9 +464,9 @@ public class Server extends Thread {
 
         }
 
-        /* End of new code */
+//        System.out.println(Network.getServerConnectionStatus());
 
-        System.out.println(Network.getServerConnectionStatus().equals("disconnected") + "-" + Network.getClientConnectionStatus().equals("disconnected"));
+        /* End of new code */
         System.out.println("\n Terminating server "+ serverThreadId + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
 	
     }

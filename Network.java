@@ -30,7 +30,9 @@ public class Network extends Thread {
     private static Semaphore outBufferFull;
     private static Semaphore inMutex = new Semaphore(1);
     private static Semaphore outMutex = new Semaphore(1);
-    private static Semaphore lock = new Semaphore(1);
+    public static Semaphore serverDone = new Semaphore(-1);
+    public static Semaphore clientDone = new Semaphore(0);
+
        
     /** 
      * Constructor of the Network class
@@ -596,9 +598,6 @@ public class Network extends Thread {
       */
      public static boolean disconnect(String IP)
      {
-         try {
-             lock.acquire();
-         }catch (Exception e){}
           if (getNetworkStatus( ).equals("active"))
          {
              if (getClientIP().equals(IP))
@@ -610,7 +609,6 @@ public class Network extends Thread {
              {
                 setServerConnectionStatus("disconnected");
              }
-
              return true;
          }
          else
@@ -643,12 +641,12 @@ public class Network extends Thread {
             if(getServerConnectionStatus().equals("disconnected") && getClientConnectionStatus().equals("disconnected")) {
                 break;
             }
-
+            System.out.print("");
         }
 
         long stop = System.currentTimeMillis();
 
 
-        System.out.println("\n Terminating Network thread - Running time" +(stop-start)+ "milliseconds.");
+        System.out.println("\n Terminating Network thread - Running time " +(stop-start)+ " milliseconds.");
     }
 }

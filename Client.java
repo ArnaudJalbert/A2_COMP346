@@ -236,7 +236,6 @@ public class Client extends Thread {
 
             this.receiveTransactions(transact); // check method definition to see if it fits with the comment above
 
-            System.out.println("test");
             receiveClientEndTime = System.currentTimeMillis();
 
             Network.disconnect(Network.getClientIP());
