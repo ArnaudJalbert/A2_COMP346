@@ -30,8 +30,6 @@ public class Network extends Thread {
     private static Semaphore outBufferFull;
     private static Semaphore inMutex = new Semaphore(1);
     private static Semaphore outMutex = new Semaphore(1);
-    public static Semaphore serverDone = new Semaphore(-1);
-    public static Semaphore clientDone = new Semaphore(0);
 
        
     /** 
