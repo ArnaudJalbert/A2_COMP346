@@ -28,6 +28,7 @@ public class Server extends Thread {
 	private String serverThreadId;				 /* Identification of the two server threads - Thread1, Thread2 */
 	private static String serverThreadRunningStatus1;	 /* Running status of thread 1 - idle, running, terminated */
 	private static String serverThreadRunningStatus2;	 /* Running status of thread 2 - idle, running, terminated */
+    private static String serverThreadRunningStatus3;
     private static Semaphore lock = new Semaphore(1);
 
     /**
@@ -440,8 +441,12 @@ public class Server extends Thread {
     public void run()
     {
         // Set corresponding status to running
-        if (serverThreadId.equals("Thread1")) serverThreadRunningStatus1 = "running";
-        else serverThreadRunningStatus2 = "running";
+        if (serverThreadId.equals("Thread1"))
+            serverThreadRunningStatus1 = "running";
+        else if (serverThreadId.equals("Thread2"))
+            serverThreadRunningStatus2 = "running";
+        else
+            serverThreadRunningStatus3 = "running";
 
         // Start server timer
         long serverStartTime, serverEndTime;
@@ -455,11 +460,17 @@ public class Server extends Thread {
         serverEndTime = System.currentTimeMillis();
 
         // Set corresponding status to "terminated"
-        if (serverThreadId.equals("Thread1")) serverThreadRunningStatus1 = "terminated";
-        else serverThreadRunningStatus2 = "terminated";
+
+        if (serverThreadId.equals("Thread1"))
+            serverThreadRunningStatus1 = "terminated";
+        else if (serverThreadId.equals("Thread2"))
+            serverThreadRunningStatus2 = "terminated";
+        else
+            serverThreadRunningStatus3 = "terminated";
+
 
         // "When both threads are terminated, the server disconnects
-        if (serverThreadRunningStatus1.equals("terminated") && serverThreadRunningStatus2.equals("terminated"))
+        if (serverThreadRunningStatus1.equals("terminated") && serverThreadRunningStatus2.equals("terminated") && serverThreadRunningStatus3.equals("terminated"))
             Network.disconnect(Network.getServerIP());
 
         /* End of new code */

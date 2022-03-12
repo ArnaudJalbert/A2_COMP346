@@ -39,9 +39,11 @@ public class Driver {
 
         Server server1 = new Server("Thread1", lock);
         Server server2 = new Server("Thread2", lock);
+        Server server3 = new Server("Thread3", lock);
 
         server1.start();
         server2.start();
+        server3.start();
 
     }
     
