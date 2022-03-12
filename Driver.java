@@ -21,11 +21,10 @@ public class Driver {
     public static void main(String[] args) {
 
         Semaphore lock = new Semaphore(1);
-        Semaphore networkLock = new Semaphore(1);
 
-        Semaphore InBufferEmpty = new Semaphore(1);
+        Semaphore InBufferEmpty = new Semaphore(10);
         Semaphore InBufferFull = new Semaphore(0);
-        Semaphore OutBufferEmpty = new Semaphore(1);
+        Semaphore OutBufferEmpty = new Semaphore(10);
         Semaphore OutBufferFull = new Semaphore(0);
 
     	Network objNetwork = new Network(InBufferEmpty, InBufferFull, OutBufferEmpty, OutBufferFull);            /* Activate the network */

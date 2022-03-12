@@ -28,6 +28,9 @@ public class Network extends Thread {
     private static Semaphore inBufferFull;
     private static Semaphore outBufferEmpty;
     private static Semaphore outBufferFull;
+    private static Semaphore inMutex = new Semaphore(1);
+    private static Semaphore outMutex = new Semaphore(1);
+    private static Semaphore lock = new Semaphore(1);
        
     /** 
      * Constructor of the Network class
@@ -368,6 +371,10 @@ public class Network extends Thread {
                       inBufferEmpty.acquire();
                   } catch(Exception e) {}
 
+                  try{
+                      inMutex.acquire();
+                  }catch (Exception e){}
+
         		  inComingPacket[inputIndexClient].setAccountNumber(inPacket.getAccountNumber());
         		  inComingPacket[inputIndexClient].setOperationType(inPacket.getOperationType());
         		  inComingPacket[inputIndexClient].setTransactionAmount(inPacket.getTransactionAmount());
@@ -391,8 +398,12 @@ public class Network extends Thread {
         			  setInBufferStatus("normal");
         		  }
 
+                try{
+                    inMutex.release();
+                }catch (Exception e){}
+
                   try {
-                      outBufferFull.release();
+                      inBufferFull.release();
                   } catch(Exception e) {}
 
                   return true;
@@ -408,6 +419,10 @@ public class Network extends Thread {
             try {
                 outBufferFull.acquire();
             } catch (Exception e) {}
+
+            try{
+                outMutex.acquire();
+            }catch (Exception e){}
 
         		 outPacket.setAccountNumber(outGoingPacket[outputIndexClient].getAccountNumber());
         		 outPacket.setOperationType(outGoingPacket[outputIndexClient].getOperationType());
@@ -432,6 +447,10 @@ public class Network extends Thread {
         			 setOutBufferStatus("normal"); 
         		 }
 
+            try{
+                outMutex.release();
+            }catch (Exception e){}
+
             try {
                 outBufferEmpty.release();
             } catch (Exception e) {}
@@ -452,6 +471,10 @@ public class Network extends Thread {
             try {
                 outBufferEmpty.acquire();
             } catch (Exception e) {}
+
+            try {
+                outMutex.acquire();
+            } catch (Exception e){}
 
         		outGoingPacket[inputIndexServer].setAccountNumber(outPacket.getAccountNumber());
         		outGoingPacket[inputIndexServer].setOperationType(outPacket.getOperationType());
@@ -477,6 +500,10 @@ public class Network extends Thread {
         		}
 
                 try {
+                    outMutex.release();
+                } catch (Exception e){}
+
+                try {
                     outBufferFull.release();
                 } catch (Exception e) {}
         	            
@@ -494,6 +521,10 @@ public class Network extends Thread {
             try {
                 inBufferFull.acquire();
             } catch(Exception e) {}
+
+            try{
+                inMutex.acquire();
+            }catch (Exception e){}
 
     		     inPacket.setAccountNumber(inComingPacket[outputIndexServer].getAccountNumber());
     		     inPacket.setOperationType(inComingPacket[outputIndexServer].getOperationType());
@@ -517,6 +548,10 @@ public class Network extends Thread {
     		     {
     		    	 setInBufferStatus("normal");
     		     }
+
+            try{
+                inMutex.release();
+            }catch (Exception e){}
 
             try {
                 inBufferEmpty.release();
@@ -561,6 +596,9 @@ public class Network extends Thread {
       */
      public static boolean disconnect(String IP)
      {
+         try {
+             lock.acquire();
+         }catch (Exception e){}
           if (getNetworkStatus( ).equals("active"))
          {
              if (getClientIP().equals(IP))
@@ -572,6 +610,7 @@ public class Network extends Thread {
              {
                 setServerConnectionStatus("disconnected");
              }
+
              return true;
          }
          else
@@ -604,8 +643,6 @@ public class Network extends Thread {
             if(getServerConnectionStatus().equals("disconnected") && getClientConnectionStatus().equals("disconnected")) {
                 break;
             }
-
-            this.yield();
 
         }
 
