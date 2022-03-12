@@ -462,8 +462,6 @@ public class Server extends Thread {
         if (serverThreadRunningStatus1.equals("terminated") && serverThreadRunningStatus2.equals("terminated"))
             Network.disconnect(Network.getServerIP());
 
-//        System.out.println(Network.getServerConnectionStatus());
-
         /* End of new code */
         System.out.println("\n Terminating server "+ serverThreadId + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
 	
