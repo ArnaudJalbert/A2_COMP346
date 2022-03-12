@@ -365,7 +365,7 @@ public class Server extends Thread {
      				} 
      		} 
         
-//     		System.out.println("\n DEBUG : Server.deposit - " + "i " + i + " Current balance " + curBalance + " Amount " + amount + " " + getServerThreadId());
+     		System.out.println("\n DEBUG : Server.deposit - " + "i " + i + " Current balance " + curBalance + " Amount " + amount + " " + getServerThreadId());
         
      		account[i].setBalance(curBalance + amount);     /* Deposit amount in the account */
 
@@ -402,12 +402,12 @@ public class Server extends Thread {
         
         account[i].setBalance(curBalance - amount);     /* Withdraw amount in the account */
 
-         try {
-             lock.release();
-//             System.out.println();
-//             System.out.println("-----------Release in Withdraw---------");
-         }catch (Exception e){}
-
+//         try {
+//             lock.release();
+////             System.out.println();
+////             System.out.println("-----------Release in Withdraw---------");
+//         }catch (Exception e){}
+//
         return account[i].getBalance ();                /* Return updated account balance */
 
 
