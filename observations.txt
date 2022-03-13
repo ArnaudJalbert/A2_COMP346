@@ -1,0 +1,14 @@
+
+
+
+1. Explain your choice of using either synchronized methods or synchronized statements.
+
+We decided to use Synchronized Statements(Semaphores) since we do not want to synchronize whole methods but rather just a part of it.
+
+2. Comment about the running times of the server threads compared to using busy-waiting in phase (i).
+
+We removed the yield statements and implemented the buffers with semaphores. We noticed that the runtime was a little slower(360ms vs 430ms). The new implementation (with semaphores) will take more time to execute, but it will use less cpu cycles, leaving it for other tasks.
+
+3. Comment about the running times (with three threads) compared to the implementation with two threads.
+
+We noticed an improvement in time. Two threads has a running time of about 430ms while using three threads has a runtime of about 330ms.
