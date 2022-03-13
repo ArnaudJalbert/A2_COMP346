@@ -357,8 +357,7 @@ public class Server extends Thread {
 
              return account[i].getBalance();                /* Return updated account balance */
          }
-
-        }
+	     
      }
          
     /**
@@ -378,9 +377,6 @@ public class Server extends Thread {
 //        System.out.println("\n DEBUG : Server.withdraw - " + "i " + i + " Current balance " + curBalance + " Amount " + amount + " " + getServerThreadId());
 
             account[i].setBalance(curBalance - amount);     /* Withdraw amount in the account */
-
-             return account[i].getBalance();                /* Return updated account balance */
-         }
 
             return account[i].getBalance();                /* Return updated account balance */
         }
