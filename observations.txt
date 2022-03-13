@@ -9,6 +9,6 @@ We decided to use Synchronized Statements(Semaphores) since we do not want to sy
 
 We removed the yield statements and implemented the buffers with semaphores. We noticed that the runtime was a little slower(360ms vs 430ms). The new implementation (with semaphores) will take more time to execute, but it will use less cpu cycles, leaving it for other tasks.
 
-3. Comment about the running times compared to the implementation with two threads.
+3. Comment about the running times (with three threads) compared to the implementation with two threads.
 
-We did not observe many difference as both programs had a runtime of about 430 ms for each thread.
+We noticed an improvement in time. Two threads has a running time of about 430ms while using three threads has a runtime of about 330ms.
