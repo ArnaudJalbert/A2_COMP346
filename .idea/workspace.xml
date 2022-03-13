@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e051ef6f-8d76-454d-bd33-387c37a437a9" name="Changes" comment="removed shit">
-      <change beforePath="$PROJECT_DIR$/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/output_samples_3_threads_1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/output_samples_3_threads_2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,9 +30,15 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Driver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -111,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647126526231</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="changed lock block to synchronize statements">
+      <created>1647133459261</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1647133459261</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -146,7 +161,8 @@
     <MESSAGE value="Fix with two random sysout statement" />
     <MESSAGE value="Changed the sysout for a yield and everything is working fine" />
     <MESSAGE value="removed shit" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed shit" />
+    <MESSAGE value="changed lock block to synchronize statements" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed lock block to synchronize statements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
