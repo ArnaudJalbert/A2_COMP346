@@ -29,7 +29,6 @@ public class Server extends Thread {
 	private static String serverThreadRunningStatus1;	 /* Running status of thread 1 - idle, running, terminated */
 	private static String serverThreadRunningStatus2;	 /* Running status of thread 2 - idle, running, terminated */
     private static String serverThreadRunningStatus3;
-    private static Semaphore lock = new Semaphore(1);
 
     /**
      * Constructor method of Client class
@@ -335,37 +334,29 @@ public class Server extends Thread {
    
      public double deposit(int i, double amount)
      {
-         try {
-             lock.acquire();
-         }catch (Exception e){}
+        synchronized (account[i]) {
 
-         double curBalance;      /* Current account balance */
-       
-     		curBalance = account[i].getBalance( );          /* Get current account balance */
-        
-     		/* NEW : A server thread is blocked before updating the 10th , 20th, ... 70th account balance in order to simulate an inconsistency situation */
+            double curBalance;      /* Current account balance */
 
-     		if (((i + 1) % 10 ) == 0)
-     		{
-     			try {
-     					Thread.sleep(100);
-     				}
-     				catch (InterruptedException e) {
-        	
-     				} 
-     		} 
-        
-     		System.out.println("\n DEBUG : Server.deposit - " + "i " + i + " Current balance " + curBalance + " Amount " + amount + " " + getServerThreadId());
-        
-     		account[i].setBalance(curBalance + amount);     /* Deposit amount in the account */
+            curBalance = account[i].getBalance();          /* Get current account balance */
 
-         try {
-             lock.release();
-         }catch (Exception e){}
+            /* NEW : A server thread is blocked before updating the 10th , 20th, ... 70th account balance in order to simulate an inconsistency situation */
 
-     		return account[i].getBalance ();                /* Return updated account balance */
+            if (((i + 1) % 10) == 0) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
 
+                }
+            }
 
+            System.out.println("\n DEBUG : Server.deposit - " + "i " + i + " Current balance " + curBalance + " Amount " + amount + " " + getServerThreadId());
+
+            account[i].setBalance(curBalance + amount);     /* Deposit amount in the account */
+
+            return account[i].getBalance();                /* Return updated account balance */
+
+        }
      }
          
     /**
@@ -377,22 +368,17 @@ public class Server extends Thread {
  
      public double withdraw(int i, double amount)
      {
-         try {
-             lock.acquire();
-         }catch (Exception e){}
-         double curBalance;      /* Current account balance */
-        
-     	curBalance = account[i].getBalance( );          /* Get current account balance */
-          
+         synchronized (account[i]) {
+             double curBalance;      /* Current account balance */
+
+             curBalance = account[i].getBalance();          /* Get current account balance */
+
 //        System.out.println("\n DEBUG : Server.withdraw - " + "i " + i + " Current balance " + curBalance + " Amount " + amount + " " + getServerThreadId());
-        
-        account[i].setBalance(curBalance - amount);     /* Withdraw amount in the account */
 
-         try {
-             lock.release();
-         }catch (Exception e){}
-        return account[i].getBalance ();                /* Return updated account balance */
+             account[i].setBalance(curBalance - amount);     /* Withdraw amount in the account */
 
+             return account[i].getBalance();                /* Return updated account balance */
+         }
 
      }
 
@@ -405,20 +391,15 @@ public class Server extends Thread {
  
      public double query(int i)
      {
-         try{
-             lock.acquire();
-         }catch (Exception e){}
-         double curBalance;      /* Current account balance */
-        
-     	curBalance = account[i].getBalance( );          /* Get current account balance */
-        
+         synchronized (account[i]) {
+             double curBalance;      /* Current account balance */
+
+             curBalance = account[i].getBalance();          /* Get current account balance */
+
 //        System.out.println("\n DEBUG : Server.query - " + "i " + i + " Current balance " + curBalance + " " + getServerThreadId());
 
-         try{
-             lock.release();
-         }catch (Exception e){}
-
-        return curBalance;                              /* Return current account balance */
+             return curBalance;                              /* Return current account balance */
+         }
      }
          
      /**
