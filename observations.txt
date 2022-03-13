@@ -1,6 +1,14 @@
 
 
 
-1. When implemented with the two servers and the critical section(with yields), we synchronized the critical section and were able tpo get consistent result.
+1. Explain your choice of using either synchronized methods or synchronized statements.
 
-2. We than removed the yields and implemented the buffers with semaphores. We noticed that the runtime was a litlle slower(360ms vs 650ms) but as we have learned in class, this method uses less CPU cycles since it does not have to do any busy-waiting.
+We decided to use Synchronized Statements(Semaphores) since we do not want to synchronize whole methods but rather just a part of it.
+
+2. Comment about the running times of the server threads compared to using busy-waiting in phase (i).
+
+We removed the yield statements and implemented the buffers with semaphores. We noticed that the runtime was a little slower(360ms vs 430ms). The new implementation (with semaphores) will take more time to execute, but it will use less cpu cycles, leaving it for other tasks.
+
+3. Comment about the running times compared to the implementation with two threads.
+
+We did not observe many difference as both programs had a runtime of about 430 ms for each thread.
