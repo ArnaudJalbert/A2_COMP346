@@ -1,0 +1,6 @@
+
+
+
+1. When implemented with the two servers and the critical section(with yields), we synchronized the critical section and were able tpo get consistent result.
+
+2. We than removed the yields and implemented the buffers with semaphores. We noticed that the runtime was a litlle slower(360ms vs 650ms) but as we have learned in class, this method uses less CPU cycles since it does not have to do any busy-waiting.
